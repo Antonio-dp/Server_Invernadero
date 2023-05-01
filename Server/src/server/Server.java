@@ -4,17 +4,60 @@
  */
 package server;
 
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author tonyd
  */
-public class Server {
+public class Server implements Runnable{
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
+    private int puerto;
+    private ServerSocket servidor;
+    private static Server server;
+
+    private Server(int puerto) {
+        this.puerto = puerto;
     }
-    
+
+    public static Server getInstance() {
+        if (server == null) {
+            server = new Server(9000);
+        }
+        return server;
+    }
+
+    @Override
+    public void run() {
+        Socket sc = null;
+        try {
+            servidor = new ServerSocket(puerto); //Se crea el servidor
+            System.out.println("Servidor Iniciado");
+            while (true) { //De esta forma el servidor siempre va a estar escuchando peticiones     
+                sc = servidor.accept();
+                new Thread().start();
+            }
+        } catch (IOException io) {
+            io.printStackTrace();
+        }
+    }
+
+    public void cerrarServerSocket() {
+        try {
+            if (servidor != null) {
+                servidor.close();
+            }
+        } catch (IOException io) {
+            io.printStackTrace();
+        }
+    }
+
+    public static void main(String[] args) {
+        new Thread(Server.getInstance()).start();
+    }
+
 }
