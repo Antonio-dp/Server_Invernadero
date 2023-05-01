@@ -5,59 +5,39 @@
 package server;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
  * @author tonyd
  */
-public class Server implements Runnable{
+public class Server {
+    private int port;
 
-    private int puerto;
-    private ServerSocket servidor;
-    private static Server server;
-
-    private Server(int puerto) {
-        this.puerto = puerto;
+    public Server(int port) {
+        this.port = port;
     }
 
-    public static Server getInstance() {
-        if (server == null) {
-            server = new Server(9000);
-        }
-        return server;
-    }
-
-    @Override
-    public void run() {
-        Socket sc = null;
-        try {
-            servidor = new ServerSocket(puerto); //Se crea el servidor
-            System.out.println("Servidor Iniciado");
-            while (true) { //De esta forma el servidor siempre va a estar escuchando peticiones     
-                sc = servidor.accept();
-                new Thread().start();
+    public void start() throws IOException {
+        try (ServerSocket serverSocket = new ServerSocket(port)) {
+            while (true) {
+                Socket socket = serverSocket.accept();
+                new Thread(() -> {
+                    try {
+                        InputStream inputStream = socket.getInputStream();
+                        byte[] buffer = new byte[1024];
+                        int len;
+                        while ((len = inputStream.read(buffer)) != -1) {
+                            String data = new String(buffer, 0, len);
+                            System.out.println("Datos recibidos: " + data);
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }).start();
             }
-        } catch (IOException io) {
-            io.printStackTrace();
         }
     }
-
-    public void cerrarServerSocket() {
-        try {
-            if (servidor != null) {
-                servidor.close();
-            }
-        } catch (IOException io) {
-            io.printStackTrace();
-        }
-    }
-
-    public static void main(String[] args) {
-        new Thread(Server.getInstance()).start();
-    }
-
 }
