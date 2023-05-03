@@ -40,4 +40,10 @@ public class Server {
             }
         }
     }
+    
+    public static void main(String[] args) throws IOException {
+        Server sv = new Server(9000);
+        sv.start();
+    }
+    
 }
