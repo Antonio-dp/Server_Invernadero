@@ -1,27 +1,19 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
-package server;
+package com.conservatory.server;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.ServerSocket;
 import java.net.Socket;
 
-/**
- *
- * @author tonyd
- */
-public class Server {
+public class ServerSocket {
     private int port;
 
-    public Server(int port) {
+    public ServerSocket(int port) {
         this.port = port;
     }
 
     public void start() throws IOException {
-        try (ServerSocket serverSocket = new ServerSocket(port)) {
+        System.out.println("Esperando datos: ");
+        try (java.net.ServerSocket serverSocket = new java.net.ServerSocket(port)) {
             while (true) {
                 Socket socket = serverSocket.accept();
                 new Thread(() -> {
@@ -40,10 +32,5 @@ public class Server {
             }
         }
     }
-    
-    public static void main(String[] args) throws IOException {
-        Server sv = new Server(9000);
-        sv.start();
-    }
-    
+
 }
