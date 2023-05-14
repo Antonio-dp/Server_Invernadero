@@ -1,14 +1,20 @@
 package com.conservatory.server;
 
+import Entidades.Registro;
+import com.conservatory.logica.DataHandler;
+
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectInputStream;
 import java.net.Socket;
 
 public class ServerSocket {
     private int port;
+    private DataHandler dataHandler;
 
     public ServerSocket(int port) {
         this.port = port;
+        this.dataHandler = new DataHandler();
     }
 
     public void start() throws IOException {
@@ -19,13 +25,15 @@ public class ServerSocket {
                 new Thread(() -> {
                     try {
                         InputStream inputStream = socket.getInputStream();
-                        byte[] buffer = new byte[1024];
-                        int len;
-                        while ((len = inputStream.read(buffer)) != -1) {
-                            String data = new String(buffer, 0, len);
-                            System.out.println("Datos recibidos: " + data);
-                        }
-                    } catch (IOException e) {
+                        ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
+
+                        Registro registro = (Registro) objectInputStream.readObject();
+                        System.out.println("Registro recibido: " + registro);
+
+                        dataHandler.handleData(registro);
+
+                        objectInputStream.close();
+                    } catch (IOException | ClassNotFoundException e) {
                         e.printStackTrace();
                     }
                 }).start();

@@ -26,7 +26,7 @@ public class ClienteResource {
 
     /*@CrossOrigin(origins = "*")
     @GetMapping("/{id}")
-    public ResponseEntity<Cliente> getClienteID(@PathVariable("id") Integer id) {
+    public ResponseEntity<Sensor> getSensorID(@PathVariable("id") Integer id) {
         Cliente c = fm.getClienteById(id);
         if (c == null) {
             return ResponseEntity.notFound().build(); // devuelve 404 Not Found
