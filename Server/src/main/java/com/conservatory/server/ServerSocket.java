@@ -11,6 +11,7 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.net.Socket;
 import java.util.Calendar;
+import java.util.Date;
 
 public class ServerSocket {
     private int port;
@@ -50,8 +51,9 @@ public class ServerSocket {
                             Registro registro = new Registro();
                             registro.setTemperatura(temperatura);
                             registro.setHumedad(humedad);
-                            Calendar fecha = Calendar.getInstance();
-                            fecha.setTimeInMillis(fechaMillis);
+                            Calendar calendar = Calendar.getInstance();
+                            calendar.setTimeInMillis(fechaMillis);
+                            Date fecha = calendar.getTime();
                             registro.setFecha(fecha);
                             registro.setSensor(sensor);
 

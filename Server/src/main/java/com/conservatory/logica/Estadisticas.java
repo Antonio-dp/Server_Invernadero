@@ -1,27 +1,17 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package reportegraficos;
+package com.conservatory.logica;
 
 import Entidades.Registro;
-import com.conservatory.logica.FachadaModelo;
-import java.util.ArrayList;
-import java.util.List;
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 
-/**
- *
- * @author tonyd
- */
-public class EstadisticaData {
+import java.util.List;
 
+public class Estadisticas {
     DescriptiveStatistics tempStats;
     DescriptiveStatistics humStats;
     List<Registro> registros;
     FachadaModelo fm = new FachadaModelo();
 
-    public EstadisticaData() {
+    public Estadisticas() {
         this.humStats = new DescriptiveStatistics();
         this.tempStats = new DescriptiveStatistics();
         registros = fm.getRegistros();
@@ -56,4 +46,5 @@ public class EstadisticaData {
             tempStats.addValue(registro.getHumedad());
         }
     }
+
 }

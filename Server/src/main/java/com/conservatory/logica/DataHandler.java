@@ -43,7 +43,7 @@ public class DataHandler {
                 }
             }
         }
-        //nuevoRegistro(r);
+        nuevoRegistro(r);
     }
 
     private void nuevoRegistro(Registro r){

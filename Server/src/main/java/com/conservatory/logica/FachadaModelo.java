@@ -53,4 +53,8 @@ public class FachadaModelo {
         return mAlarma.consultarTodos();
     }
 
+    public void addAlarma(Alarma alarma){
+        mAlarma.agregarAlarma(alarma);
+    }
+
 }
