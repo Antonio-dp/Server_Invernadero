@@ -5,6 +5,6 @@ import Entidades.Alarma;
 public class NotificationSender {
 
     public void activarAlarma(Alarma alarma){
-        System.out.println("PELIGRO: " + alarma.getTipo());
+        System.out.println("PELIGRO: limite de " + alarma.getTipo());
     }
 }

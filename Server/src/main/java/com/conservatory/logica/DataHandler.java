@@ -14,6 +14,7 @@ public class DataHandler {
     public DataHandler(){
         this.fm= new FachadaModelo();
         this.alarmas = new ArrayList<>();
+        this.notificaciones = new NotificationSender();
     }
 
     public void setAlarmas(List<Alarma> alarmas){
@@ -21,10 +22,15 @@ public class DataHandler {
     }
 
     public void handleData(Registro r) {
+        System.out.println("Entro al data handler");
         for (Alarma alarma : alarmas) {
             if(alarma.getSensor().equals(r.getSensor().getId())){
                 switch(alarma.getTipo()){
                     case "HUMEDAD":
+                        System.out.println("entro a humedad");
+                        System.out.println("humedad: " + r.getHumedad());
+                        System.out.println("limites: " + alarma.getLimiteInferior() + "-" + alarma.getLimiteSuperior());
+
                         if (r.getHumedad() < alarma.getLimiteInferior() || r.getHumedad() > alarma.getLimiteSuperior()) {
                             notificaciones.activarAlarma(alarma);
                         }
@@ -37,10 +43,10 @@ public class DataHandler {
                 }
             }
         }
-        nuevoRegistro(r);
+        //nuevoRegistro(r);
     }
 
-    public void nuevoRegistro(Registro r){
+    private void nuevoRegistro(Registro r){
         fm.addRegistro(r);
     }
 
