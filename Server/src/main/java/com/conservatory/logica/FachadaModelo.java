@@ -29,7 +29,7 @@ public class FachadaModelo {
         return mSensor.consultarTodos();
     }
 
-    public Sensor getSensor(ObjectId id){
+    public Sensor getSensor(String id){
         return mSensor.consultarSensor(id);
     }
 
