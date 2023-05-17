@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 public class FiltroJWT {
     @Value("${jwt.secret}")
-    private final String secret="invernadero";
+    private final String secret="Q6ay+7Iihklc0cK5wz6VjF1ECO9ivWrBDoC76U3A/DE=";
 
     @Value("${jwt.expiration}")
     private int expiration;
@@ -26,7 +26,7 @@ public class FiltroJWT {
                 .setClaims(claims)
                 .setIssuedAt(now)
                 .setExpiration(expiryDate)
-                .signWith(SignatureAlgorithm.HS512, secret)
+                .signWith(SignatureAlgorithm.HS256, secret)
                 .compact();
     }
 
