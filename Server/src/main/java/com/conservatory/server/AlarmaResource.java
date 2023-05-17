@@ -1,7 +1,7 @@
 package com.conservatory.server;
 
 import Entidades.Alarma;
-import com.conservatory.filtrojwt.FiltroJWT;
+import com.conservatory.negocio.FiltroJWT;
 import com.conservatory.logica.FachadaModelo;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

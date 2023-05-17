@@ -31,12 +31,12 @@ public class DataHandler {
                     System.out.println("limites: " + alarma.getLimiteInferior() + "-" + alarma.getLimiteSuperior());
 
                     if (r.getHumedad() < alarma.getLimiteInferior() || r.getHumedad() > alarma.getLimiteSuperior()) {
-                        notificaciones.activarAlarma(alarma);
+                        notificaciones.notificar(alarma);
                     }
                     break;
                 case "TEMPERATURA":
                     if (r.getTemperatura() < alarma.getLimiteInferior() || r.getTemperatura() > alarma.getLimiteSuperior()) {
-                        notificaciones.activarAlarma(alarma);
+                        notificaciones.notificar(alarma);
                     }
                     break;
             }

@@ -1,8 +1,7 @@
 package com.conservatory.server;
 
 import Entidades.Sensor;
-import com.conservatory.filtrojwt.FiltroJWT;
-import org.springframework.http.HttpHeaders;
+import com.conservatory.negocio.FiltroJWT;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.conservatory.logica.FachadaModelo;
