@@ -8,15 +8,17 @@ import java.util.List;
 public class Estadisticas {
     DescriptiveStatistics tempStats;
     DescriptiveStatistics humStats;
-    List<Registro> registros;
     FachadaModelo fm = new FachadaModelo();
 
     public Estadisticas() {
         this.humStats = new DescriptiveStatistics();
         this.tempStats = new DescriptiveStatistics();
-        registros = fm.getRegistros();
         this.obtenerDatosHumedad();
         this.obtenerDatosTemperatura();
+    }
+
+    public List<Registro> getRegistros() {
+        return fm.getRegistros();
     }
 
     public double calcularTempMedia() {
@@ -36,13 +38,13 @@ public class Estadisticas {
     }
 
     private void obtenerDatosTemperatura() {
-        for (Registro registro : registros) {
+        for (Registro registro : getRegistros()) {
             tempStats.addValue(registro.getTemperatura());
         }
     }
 
     private void obtenerDatosHumedad() {
-        for (Registro registro : registros) {
+        for (Registro registro : getRegistros()) {
             tempStats.addValue(registro.getHumedad());
         }
     }
