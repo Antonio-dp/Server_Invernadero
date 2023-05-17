@@ -1,6 +1,8 @@
 package com.conservatory.server;
 
 import Entidades.Sensor;
+import com.conservatory.filtrojwt.FiltroJWT;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.conservatory.logica.FachadaModelo;
@@ -11,6 +13,7 @@ import java.util.List;
 @RequestMapping("sensores")
 public class SensorResource {
     FachadaModelo fm;
+    FiltroJWT jwt = new FiltroJWT();
 
     public SensorResource() {
         fm= new FachadaModelo();
@@ -18,7 +21,8 @@ public class SensorResource {
 
     @CrossOrigin(origins = "*")
     @GetMapping
-    public ResponseEntity<List<Sensor>> getSensores() {
+    public ResponseEntity<List<Sensor>> getSensores(@RequestHeader("auth")  String token) {
+        jwt.validateToken(token);
         List<Sensor> sensores = fm.getSensores();
         if (sensores == null) {
             return ResponseEntity.notFound().build(); // devuelve 404 Not Found
@@ -41,7 +45,8 @@ public class SensorResource {
 
     @CrossOrigin(origins = "*")
     @PostMapping
-    public ResponseEntity<Sensor> addSensor(@RequestBody Sensor s){
+    public ResponseEntity<Sensor> addSensor(@RequestBody Sensor s, @RequestHeader("auth")  String token){
+        jwt.validateToken(token);
         fm.addSensor(s);
         return ResponseEntity.status(201).body(s);
     }
@@ -60,7 +65,8 @@ public class SensorResource {
 
     @CrossOrigin(origins = "*")
     @PutMapping
-    public ResponseEntity<Sensor> updateSensor(@RequestBody Sensor sensor) {
+    public ResponseEntity<Sensor> updateSensor(@RequestBody Sensor sensor, @RequestHeader("auth")  String token) {
+        jwt.validateToken(token);
         /*Cliente c = fm.getClienteById(cliente.getId());
         if (c == null) {
             return ResponseEntity.notFound().build(); // devuelve 404 Not Found

@@ -3,6 +3,7 @@ package com.conservatory.logica;
 import DAOS.AlarmaDAO;
 import DAOS.RegistrosDAO;
 import DAOS.SensorDAO;
+import DAOS.UsuariosDAO;
 import Entidades.Alarma;
 import Entidades.Registro;
 import Entidades.Sensor;
@@ -10,6 +11,7 @@ import conexiones.ConexionBD;
 import interfaces.IAlarmaDAO;
 import interfaces.IRegistrosDAO;
 import interfaces.ISensorDAO;
+import interfaces.IUsuariosDAO;
 import org.bson.types.ObjectId;
 
 import java.util.List;
@@ -19,17 +21,20 @@ public class FachadaModelo {
     ISensorDAO mSensor;
     IRegistrosDAO mRegistro;
     IAlarmaDAO mAlarma;
+
+    IUsuariosDAO mUsuario;
     public FachadaModelo() {
         this.mSensor = new SensorDAO(conn);
         this.mRegistro = new RegistrosDAO(conn);
         this.mAlarma = new AlarmaDAO(conn);
+        this.mUsuario = new UsuariosDAO(conn);
     }
 
     public List<Sensor> getSensores(){
         return mSensor.consultarTodos();
     }
 
-    public Sensor getSensor(String id){
+    public Sensor getSensor(ObjectId id){
         return mSensor.consultarSensor(id);
     }
 
