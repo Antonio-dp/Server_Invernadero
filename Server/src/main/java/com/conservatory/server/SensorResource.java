@@ -21,6 +21,7 @@ public class SensorResource {
     @CrossOrigin(origins = "*")
     @GetMapping
     public ResponseEntity<List<Sensor>> getSensores(@RequestHeader("auth")  String token) {
+        System.out.println("entro a getsensores");
         jwt.validateToken(token);
         List<Sensor> sensores = fm.getSensores();
         if (sensores == null) {
@@ -31,17 +32,6 @@ public class SensorResource {
         }
     }
 
-    /*@CrossOrigin(origins = "*")
-    @GetMapping("/{id}")
-    public ResponseEntity<Sensor> getSensorID(@PathVariable("id") Integer id) {
-        Cliente c = fm.getClienteById(id);
-        if (c == null) {
-            return ResponseEntity.notFound().build(); // devuelve 404 Not Found
-        } else {
-            return ResponseEntity.ok(c); // devuelve 200 OK y el objeto Pedido
-        }
-    }*/
-
     @CrossOrigin(origins = "*")
     @PostMapping
     public ResponseEntity<Sensor> addSensor(@RequestBody Sensor s, @RequestHeader("auth")  String token){
@@ -50,31 +40,4 @@ public class SensorResource {
         return ResponseEntity.status(201).body(s);
     }
 
-    /*@CrossOrigin(origins = "*")
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Cliente> deleteSensor(@PathVariable("id") int id) {
-        Cliente c = fm.getClienteById(id);
-        if (c == null) {
-            return ResponseEntity.notFound().build(); // devuelve 404 Not Found
-        } else {
-            fm.deleteCliente(c);
-            return ResponseEntity.noContent()   .build(); //
-        }
-    }*/
-
-    @CrossOrigin(origins = "*")
-    @PutMapping
-    public ResponseEntity<Sensor> updateSensor(@RequestBody Sensor sensor, @RequestHeader("auth")  String token) {
-        jwt.validateToken(token);
-        /*Cliente c = fm.getClienteById(cliente.getId());
-        if (c == null) {
-            return ResponseEntity.notFound().build(); // devuelve 404 Not Found
-        } else {
-            fm.updateCliente(cliente);
-            return ResponseEntity.noContent().build(); //
-        }*/
-        System.out.println(sensor.getId());
-
-        return ResponseEntity.noContent().build();
-    }
 }

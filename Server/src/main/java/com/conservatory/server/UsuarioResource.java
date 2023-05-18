@@ -17,4 +17,5 @@ public class UsuarioResource {
         String token = jwt.generateToken(correo);
         return ResponseEntity.status(200).header("auth", token).build();
     }
+
 }

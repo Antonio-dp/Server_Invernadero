@@ -64,19 +64,6 @@ public class ServerSocket {
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
-                    /*try {
-                        InputStream inputStream = socket.getInputStream();
-                        ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
-
-                        Registro registro = (Registro) objectInputStream.readObject();
-                        System.out.println("Registro recibido: " + registro);
-
-                        //dataHandler.handleData(registro);
-
-                        objectInputStream.close();
-                    } catch (IOException | ClassNotFoundException e) {
-                        e.printStackTrace();
-                    }*/
                 }).start();
             }
         }
